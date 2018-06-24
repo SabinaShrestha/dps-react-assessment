@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Header, Segment, Divider, Grid, Image } from 'semantic-ui-react';
+import { Container, Card, Header, Segment, Divider, Grid, Image } from 'semantic-ui-react';
 import ReactMarkDown from 'react-markdown';
 import axios from 'axios';
 import dpsLogo from '../images/dpsLogo.svg';
+import { Link } from 'react-router-dom';
 
 class Beers extends Component {
   state = { beers: [] };
@@ -26,33 +27,28 @@ class Beers extends Component {
           <Image style={styles.centered} size='tiny' src={dpsLogo} alt='DevPoint Studios Logo' />
           <Header as='h1' style={styles.header}>Beers</Header>
         </Segment>
-        {beers.map(beer =>
-          <Grid>
-            <Grid.Column computer={16} tablet={16} mobile={16}>
-              <Segment inverted>
-                  <Header
-                  as='h1'
-                  textAlign='center'
-                  style={styles.header}>
-                    {beer.name}
-                  </Header>
-                  <Divider />
-                  <Header as='h3' textAlign="center" style={styles.header}>
-                    {beer.description}
-                  </Header>
-              </Segment>
-            </Grid.Column>
-          </Grid>
-        )}
-
-
+          {beers.map(beer =>
+              <Card.Group itemsPerRow={3}>
+                  <Card key={beer.id}>
+                    <Card.Content>
+                      {beer.name}
+                    </Card.Content>
+                    <Card.Content>
+                      {beer.description}
+                    </Card.Content>
+                    <Link to={`/beer/${beer.name}`}>
+                      View Beer
+                    </Link>
+                  </Card>
+              </Card.Group>
+            )}
       </Segment>
     );
   }
 }
 
 const styles = {
-  iframe: {
+  iframe:{
     width: '100%',
     height: '100vh'
   },
@@ -63,5 +59,7 @@ const styles = {
     color: '#2ecc40'
   }
 }
+
+
 
 export default Beers;
