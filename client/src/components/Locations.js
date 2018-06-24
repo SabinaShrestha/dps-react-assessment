@@ -5,13 +5,12 @@ import axios from 'axios';
 import dpsLogo from '../images/dpsLogo.svg';
 
 class Locations extends Component {
-  state = { breweries: [] };
+  state = { locations: [] };
 
   componentDidMount() {
-    axios.get('/api/all_breweries')
+    axios.get('/api/all_locations')
       .then(res => {
-        debugger
-        this.setState({ breweries: res.data.entries })
+        this.setState({ locations: res.data.entries })
       })
       .catch( error => {
         console.log(error.response);
@@ -20,14 +19,14 @@ class Locations extends Component {
 
 
   render() {
-    const {breweries} = this.state
+    const {locations} = this.state
     return(
       <Segment basic>
         <Segment basic textAlign='center'>
           <Image style={styles.centered} size='tiny' src={dpsLogo} alt='DevPoint Studios Logo' />
-          <Header as='h1' style={styles.header}>DevPoint Studios React Assessment</Header>
+          <Header as='h1' style={styles.header}>Locations</Header>
         </Segment>
-        {breweries.map(brewery =>
+        {locations.map(location =>
           <Grid>
             <Grid.Column computer={16} tablet={16} mobile={16}>
               <Segment inverted>
@@ -35,15 +34,19 @@ class Locations extends Component {
                   as='h1'
                   textAlign='center'
                   style={styles.header}>
-                    {brewery.name_short_display}
+                    {location.name}
                   </Header>
                   <Divider />
                   <Header as='h3' textAlign="center" style={styles.header}>
-                    {brewery.description}
+                    {location.street_address}
                   </Header>
                   <Divider />
                   <Header as='h3' textAlign="center" style={styles.header}>
-                    {brewery.website}
+                    {location.locality}
+                  </Header>
+                  <Divider />
+                  <Header as='h3' textAlign="center" style={styles.header}>
+                    {location.region}
                   </Header>
               </Segment>
             </Grid.Column>

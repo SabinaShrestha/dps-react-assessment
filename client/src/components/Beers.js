@@ -24,7 +24,7 @@ class Beers extends Component {
       <Segment basic>
         <Segment basic textAlign='center'>
           <Image style={styles.centered} size='tiny' src={dpsLogo} alt='DevPoint Studios Logo' />
-          <Header as='h1' style={styles.header}>DevPoint Studios React Assessment</Header>
+          <Header as='h1' style={styles.header}>Beers</Header>
         </Segment>
         {beers.map(beer =>
           <Grid>

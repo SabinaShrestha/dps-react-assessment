@@ -10,7 +10,6 @@ class Breweries extends Component {
   componentDidMount() {
     axios.get('/api/all_breweries')
       .then(res => {
-        debugger
         this.setState({ breweries: res.data.entries })
       })
       .catch( error => {
@@ -25,7 +24,7 @@ class Breweries extends Component {
       <Segment basic>
         <Segment basic textAlign='center'>
           <Image style={styles.centered} size='tiny' src={dpsLogo} alt='DevPoint Studios Logo' />
-          <Header as='h1' style={styles.header}>DevPoint Studios React Assessment</Header>
+          <Header as='h1' style={styles.header}>Breweries</Header>
         </Segment>
         {breweries.map(brewery =>
           <Grid>
