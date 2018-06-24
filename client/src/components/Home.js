@@ -5,48 +5,56 @@ import axios from 'axios';
 import dpsLogo from '../images/dpsLogo.svg';
 
 class Home extends Component {
-  state = { beers: [] };
+  state = { assignmentMarkdown: '' };
 
   componentDidMount() {
-    axios.get('/api/all_beers')
+    axios.get('/api/assignment_details')
       .then(res => {
-        debugger
-        this.setState({ beers: res.data.entries })
+        this.setState({ assignmentMarkdown: res.data.file })
       })
       .catch( error => {
         console.log(error.response);
     });
   }
 
-
   render() {
-    const {beers} = this.state
     return(
       <Segment basic>
         <Segment basic textAlign='center'>
           <Image style={styles.centered} size='tiny' src={dpsLogo} alt='DevPoint Studios Logo' />
           <Header as='h1' style={styles.header}>DevPoint Studios React Assessment</Header>
         </Segment>
-        {beers.map(beer =>
-          <Grid>
-            <Grid.Column computer={16} tablet={16} mobile={16}>
-              <Segment inverted>
-                  <Header
-                  as='h1'
-                  textAlign='center'
-                  style={styles.header}>
-                    {beer.name}
-                  </Header>
-                  <Divider />
-                  <Header as='h3' textAlign="center" style={styles.header}>
-                    {beer.description}
-                  </Header>
-              </Segment>
-            </Grid.Column>
-          </Grid>
-        )}
-
-
+        <Grid>
+          <Grid.Column computer={8} tablet={8} mobile={16}>
+            <Segment inverted>
+              <Header
+                as='h1'
+                textAlign='center'
+                style={styles.header}>
+                  Assessment Details:
+              </Header>
+              <Divider />
+              <ReactMarkDown source={this.state.assignmentMarkdown} />
+            </Segment>
+          </Grid.Column>
+          <Grid.Column computer={8} tablet={8} mobile={16}>
+            <Segment inverted>
+              <Header
+                as='h1'
+                textAlign='center'
+                style={styles.header}>
+                  Assessment API Endpoints:
+              </Header>
+              <Divider />
+              <iframe
+                style={styles.iframe}
+                title='Assignment README.md'
+                frameBorder={0}
+                src='http://localhost:3001/rails/info/routes'
+              />
+            </Segment>
+          </Grid.Column>
+        </Grid>
       </Segment>
     );
   }
